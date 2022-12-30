@@ -1,0 +1,103 @@
+// 引入統一管理CSS變數的檔案做合併
+@import "variables";
+
+.test-block {
+    width: $blockWidth;
+    box-shadow: 15px 15px 0 darken($lightYellow, 10%);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 0; /* 清除預設css */
+}
+
+@media screen and (max-width: 992px) {
+    .test-block {
+      flex-wrap: wrap;
+      box-shadow: none;
+    }
+}
+
+.left-block {
+    position: relative;
+}
+
+.banner-img {
+    width: $boxWidth;
+    height: $boxHeight;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.banner-words {
+    position: absolute;
+    width: 420px;
+    height: 75px;
+    color: $white;
+    font-size: 19px;
+    top: 0; /* 在absolute時，元素本身要有寬高再搭配top/bottom/left/right: 0以及margin: auto才能置中 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.right-block {
+    width: $boxWidth;
+    height: $boxHeight;
+    background-color: $lightYellow;
+}
+
+.test-rules {
+    width: 440px;
+    color: $darkGreen;
+    font-size: 18px;
+    margin: 150px auto 50px auto;
+}
+
+.player-confirm {
+    width: 440px;
+    color: $darkGreen;
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.player-input {
+    width: 260px;
+    border: solid 1px $lightBrown;
+    padding: 8px;
+    margin-left: 30px;
+}
+
+.test-button {
+    width: $btnWidth;
+    height: $btnHeight;
+    color: $white;
+    background-color: $lightBrown;
+    text-align: center; 
+    line-height: 50px;
+    margin: 50px auto 30px auto;
+    &:hover {
+        background-color: $darkBrown;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+}
+
+.remind {
+    color: $alertRed;
+    text-align: center;
+}
+
+.notice {
+    width: $blockWidth;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    p {
+        color: $lightBrown;
+        margin: 0;
+    }
+}

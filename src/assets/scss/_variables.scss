@@ -1,11 +1,18 @@
+// 顏色設定
 $white: white;
 $black: black;
 $lightYellow: #FEFAE0;
-$darkYellow: #FFF4AD;
 $lightBrown: #DDA15E;
 $darkBrown: #BC6C25;
 $lightGreen: #606C38;
 $darkGreen: #283618;
 $correctGreen: #78C764;
 $falseRed: #FF5858;
-$alertRed: red;
+$alertRed: rgb(224, 0, 0);
+
+// 長寬設定
+$blockWidth: 1000px;
+$boxWidth: 500px;
+$boxHeight: 680px;
+$btnWidth: 180px;
+$btnHeight: 50px;

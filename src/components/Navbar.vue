@@ -20,33 +20,5 @@
 
 </script>
 <style lang="scss" scoped>
-    @import '../assets/scss/colors.scss';
-
-    .navbar {
-        background-color: $lightGreen;
-        margin-bottom: 30px;
-    }
-
-    /* 要將這三個css都修改樣式才會有變化 */
-    .navbar-light .navbar-nav .nav-link {
-        color: $white;
-    }
-
-    .navbar-brand {
-        color: $white;
-    }
-
-    .navbar-brand:hover {
-        color: $darkGreen;
-        transition: 0.3s;
-    }
-
-    .nav-link {
-        font-weight: normal;
-    }
-
-    .nav-link:hover {
-        text-decoration: underline;
-        text-underline-offset: 2.5px;
-    }
+    @import '../assets/scss/Navbar.scss';
 </style>

@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/Lightning round/'
+  publicPath: '/Lightning-round/'
 }

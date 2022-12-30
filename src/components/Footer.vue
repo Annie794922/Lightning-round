@@ -8,12 +8,5 @@
 
 </script>
 <style lang="scss" scoped>
-    @import '../assets/scss/colors.scss';
-
-    footer {
-        color: $white;
-        background-color: $lightGreen;
-        text-align: center;
-        padding: 8px;
-    }
+    @import '../assets/scss/Footer.scss';
 </style>
