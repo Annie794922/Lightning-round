@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="test-block">
+      <div class="index-block">
         <div class="left-block">
           <div class="banner-img">
             <img src="../assets/images/首頁圖.jpg" alt="">
@@ -21,13 +21,13 @@
             在開始答題之前，請先告訴我你的名字吧？
           </h3>
           <input class="player-input" type="text" placeholder="字數上限為15個字" v-model="player">
-          <div class="test-button" @click="testStart()">開始作答</div>
+          <div class="l-button" @click="testStart()">開始作答</div>
           <p class="remind">{{ remind }}</p>
         </div>
       </div>
       <div class="notice">
-        <p>*本專案製作之網站僅為個人自主學習之用途，與任何商業行為無關，懇請知悉。</p>
-        <p>*Please be informed that the project and the website are created for practicing coding instead of commercial use.</p>
+        <p class="notice-cn">*本專案製作之網站僅為個人自主學習之用途，與任何商業行為無關，懇請知悉。</p>
+        <p class="notice-en">*Please be informed that the project and the website are created for practicing coding instead of commercial use.</p>
       </div>
     </div>
   </div>

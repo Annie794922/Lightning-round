@@ -1,7 +1,10 @@
 import { createStore } from 'vuex'
+import questionsData from "../../public/json/questions.json";
 
 export default createStore({
   state: {
+    questionsData: questionsData,
+    questionOrder: 1,
     latest: {
       playerId: 0,
       playerName: '',

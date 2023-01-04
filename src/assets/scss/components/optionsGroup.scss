@@ -1,0 +1,23 @@
+@import "../variables";
+@import "../layout";
+@import "../module";
+
+
+.options-group {
+    width: 360px;
+    margin: 30px auto 10px auto;
+}
+
+.option-block {
+    width: 330px;
+    height: 60px;
+    font-size: 19px;
+    border: solid 1px $darkGreen;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        cursor: pointer;
+    }
+}

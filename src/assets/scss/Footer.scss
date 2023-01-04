@@ -1,9 +1,4 @@
 // 引入統一管理CSS變數的檔案做合併
 @import "variables";
-
-footer {
-    color: $white;
-    background-color: $lightGreen;
-    text-align: center;
-    padding: 8px;
-}
+// 引入自定義的網站佈局
+@import "layout";

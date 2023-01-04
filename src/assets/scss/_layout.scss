@@ -1,0 +1,91 @@
+// 通用元件(Navbar、Footer等)
+
+// Navbar
+.navbar {
+    background-color: $lightGreen;
+    margin-bottom: 30px;
+}
+
+/* 要將這三個css都修改樣式才會有變化 */
+.navbar-light .navbar-nav .nav-link {
+    color: $white;
+}
+
+.navbar-brand {
+    color: $white;
+    &:hover {
+        color: $darkGreen;
+        transition: 0.3s;
+    }
+}
+
+.nav-link {
+    font-weight: normal;
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 2.5px;
+    }
+}
+
+// Footer
+footer {
+    color: $white;
+    background-color: $lightGreen;
+    text-align: center;
+    padding: 8px;
+}
+
+
+// 共通屬性(同樣設計的元素在專案中出現多次，例如表格、按鈕等，用前綴詞將class名稱區分)
+
+.l-question-block {
+    width: $blockWidth;
+    border: solid 1px $lightBrown;
+    margin: 0 auto 30px auto;
+    display: flex;
+    justify-content: center;
+    padding: 0; /* 清除預設css */
+}
+
+@media screen and (max-width: 992px) {
+    .l-question-block {
+      flex-wrap: wrap;
+    }
+}
+
+.l-question-img-block {
+    width: $boxWidth;
+    height: $boxHeight;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .l-question-img-block {
+        width: $boxWidth * 1.2;
+        height: $boxHeight / 1.5;
+    }
+}
+
+.l-question-right-block {
+    width: $boxWidth;
+    height: $boxHeight;
+    text-align: center;
+}
+
+.l-button {
+    width: $btnWidth;
+    padding: $btnHeight 0;
+    color: $white;
+    background-color: $lightBrown;
+    text-align: center; 
+    margin: 45px auto 30px auto;
+    &:hover {
+        background-color: $darkBrown;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+}

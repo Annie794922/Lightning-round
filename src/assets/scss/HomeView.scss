@@ -1,7 +1,9 @@
 // 引入統一管理CSS變數的檔案做合併
 @import "variables";
+// 引入自定義的網站佈局
+@import "layout";
 
-.test-block {
+.index-block {
     width: $blockWidth;
     box-shadow: 15px 15px 0 darken($lightYellow, 10%);
     margin: 0 auto;
@@ -11,7 +13,7 @@
 }
 
 @media screen and (max-width: 992px) {
-    .test-block {
+    .index-block {
       flex-wrap: wrap;
       box-shadow: none;
     }
@@ -71,21 +73,6 @@
     margin-left: 30px;
 }
 
-.test-button {
-    width: $btnWidth;
-    height: $btnHeight;
-    color: $white;
-    background-color: $lightBrown;
-    text-align: center; 
-    line-height: 50px;
-    margin: 50px auto 30px auto;
-    &:hover {
-        background-color: $darkBrown;
-        transition: 0.3s;
-        cursor: pointer;
-    }
-}
-
 .remind {
     color: $alertRed;
     text-align: center;
@@ -96,8 +83,9 @@
     margin: 30px auto;
     display: flex;
     flex-wrap: wrap;
-    p {
-        color: $lightBrown;
-        margin: 0;
-    }
+}
+
+.notice-cn,.notice-en {
+    color: $lightBrown;
+    margin: 0;
 }

@@ -1,0 +1,22 @@
+// 自定義子模組或引入第三方模組
+
+.hovered-option {
+    &:hover {
+        background-color: $lightYellow;
+        transition: 0.5s;
+    }
+}
+
+.clicked-option {
+    background-color: darken($lightYellow, 10%);
+}
+
+.correct-option {
+    color: $white;
+    background-color: $correctGreen;
+}
+
+.false-option {
+    color: $white;
+    background-color: $falseRed;
+}
