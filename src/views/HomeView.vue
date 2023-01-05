@@ -22,7 +22,7 @@
           </h3>
           <input class="player-input" type="text" placeholder="字數上限為15個字" v-model="player">
           <div class="l-button" @click="testStart()">開始作答</div>
-          <p class="remind">{{ remind }}</p>
+          <p class="l-message">{{ message }}</p>
         </div>
       </div>
       <div class="notice">
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       player: '',
-      remind: ''
+      message: ''
     }
   },
   methods: {
@@ -53,10 +53,10 @@ export default {
       const vm = this;
 
       if (vm.player === '') {
-        vm.remind = '你忘記輸入名字了喔！';
+        vm.message = '你忘記輸入名字了喔！';
         return;
       } else if (vm.player.length > 15) {
-        vm.remind = '名字字數不得超過15個字喔！';
+        vm.message = '名字字數不得超過15個字喔！';
         return;
       } else {
         vm.$store.commit('playerData', {

@@ -13,7 +13,7 @@
         },
         data() {
             return {
-                questionOrder: this.$store.state.questionOrder
+
             }
         },
         methods: {
@@ -21,7 +21,7 @@
                 console.log(plant);
                 const vm = this;
                 const currentQuestion = vm.$store.state.questionsData.find(function(item) {
-                    return item.id === vm.questionOrder;
+                    return item.id === vm.$store.state.questionOrder;
                 });
                 const chosenPlant = currentQuestion.options.find(function(item) {
                     return item.value === plant;
