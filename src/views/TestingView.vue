@@ -69,6 +69,11 @@
                         vm.buttonStatus = '下一題';
                         vm.message = '作答時間到了，再接再厲！';
                         vm.replyStatusControl();
+
+                        if (vm.$store.state.questionOrder === 10) {
+                            vm.buttonStatus = '測驗結果';
+                        }
+
                         return;
                     } else {
                         restSeconds--;
@@ -86,7 +91,7 @@
                 const vm = this;
                 
                 if ( vm.responded === true ) {
-                    alert('本題作答已結束，趕快前往下一題吧！');
+                    alert('本題作答已結束，別再留戀了！');
                     return;
                 } else {
                     vm.optionValue = data.optionValue;
@@ -110,9 +115,13 @@
                             if ( vm.optionValue === question.answer ) {
                                 vm.message = '恭喜你答對囉！';
                             } else if ( vm.optionValue !== question.answer ) {
-                                vm.message = '可惜答錯了，繼續挑戰下去吧！';
+                                vm.message = '可惜答錯了，繼續進行下去吧！';
                             }
                             vm.replyStatusControl();
+
+                            if (vm.$store.state.questionOrder === 10) {
+                                vm.buttonStatus = '測驗結果';
+                            }
                         }
                         break;
                     case '下一題':
@@ -139,16 +148,14 @@
                                 break;
                         }
 
-                        vm.restSeconds = null;
-                        vm.optionValue = null;
-                        vm.optionIndex = null;
-                        vm.buttonStatus = '確定';
-                        vm.message = '';
-                        vm.responded = false;
-                        vm.answerIndex = null;
-
+                        vm.resetConditions();
                         vm.$store.commit('changeQuestion');
                         vm.SecondsCountDown();
+                        break;
+                    case '測驗結果':
+                        vm.resetConditions();
+                        vm.$store.commit('changeQuestion');
+                        vm.$router.push('/result');
                         break;
                 }
             },
@@ -180,7 +187,7 @@
                             isCorrect: true
                         });
                         break;
-                    case '可惜答錯了，繼續挑戰下去吧！':
+                    case '可惜答錯了，繼續進行下去吧！':
                         vm.answerIndex = answerIndex;
                         options[vm.optionIndex].classList.remove('hovered-option', 'clicked-option');
                         options[vm.optionIndex].classList.add('false-option');
@@ -213,6 +220,17 @@
                         });
                         break;
                 }
+            },
+            resetConditions() {
+                const vm = this;
+                
+                vm.restSeconds = null;
+                vm.optionValue = null;
+                vm.optionIndex = null;
+                vm.buttonStatus = '確定';
+                vm.message = '';
+                vm.responded = false;
+                vm.answerIndex = null;
             }
         },
         computed: {

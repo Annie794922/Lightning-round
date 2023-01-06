@@ -94,3 +94,25 @@ footer {
     color: $alertRed;
     text-align: center;
 }
+
+.l-area-block {
+    width: $blockWidth;
+    border: solid 1px $lightBrown;
+    margin: 0 auto 30px auto;
+    padding: 0; /* 清除預設css */
+}
+
+.l-area-title {
+    color: $white;
+    background-color: $lightBrown;
+    font-size: 26px;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.l-player-message {
+    color: $darkGreen;
+    font-size: 22px;
+    text-align: center;
+    margin: 30px 0;
+}

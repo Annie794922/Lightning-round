@@ -5,6 +5,7 @@ export default createStore({
   state: {
     questionsData: questionsData,
     questionOrder: 1,
+    gameEnded: false,
     latest: {
       playerId: 0,
       playerName: '',
@@ -19,7 +20,10 @@ export default createStore({
   },
   mutations: {
     playerData(state, data) {
+      // 測驗初始化
       state.questionOrder = 1;
+      state.gameEnded = false;
+      state.latest.record = [];
 
       state.latest.playerId++;
       data.playerId = state.latest.playerId;
@@ -38,7 +42,11 @@ export default createStore({
       console.log(state.history.records);
     },
     changeQuestion(state) {
-      state.questionOrder++;
+      if (state.questionOrder === 10) {
+        state.gameEnded = true;
+      } else if (state.questionOrder < 10) {
+        state.questionOrder++;
+      }
     }
   },
   actions: {

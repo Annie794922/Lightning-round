@@ -1,0 +1,31 @@
+@import 'variables';
+@import 'layout';
+
+.not-ended-situation {
+    margin: 230px 0;
+}
+
+.table {
+    width: $blockWidth * 0.75;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+    .table {
+        width: $blockWidth * 0.5;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .table {
+        width: $blockWidth * 0.4;
+    }
+}
+
+.correct-mark {
+    color: $correctGreen;
+}
+
+.incorrect-mark {
+    color: $falseRed;
+}
