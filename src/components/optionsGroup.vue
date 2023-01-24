@@ -1,5 +1,7 @@
 <template>
     <div class="options-group">
+        <!-- 由於從父層運用v-for + v-bind的方式將選項傳進來，搭配:class使用判斷式會導致每個選項被點擊之後都呈現相同效果，無法達到樣式切換 -->
+        <!-- 因此採取在父層利用watch監控data物件中的狀態變化之方法來切換樣式 -->
         <div class="option-block hovered-option" @click="chosenOption(value)">
             {{ label }}
         </div>
@@ -17,6 +19,7 @@
             }
         },
         methods: {
+            // 將選取的選項資料傳至父層
             chosenOption(plant) {
                 console.log(plant);
                 const vm = this;
@@ -29,7 +32,7 @@
                 const optionIndex = currentQuestion.options.indexOf(chosenPlant);
                 // console.log(optionIndex);
 
-                this.$emit('catchOptionData', {
+                vm.$emit('catchOptionData', {
                     optionValue: plant,
                     optionIndex: optionIndex
                 });

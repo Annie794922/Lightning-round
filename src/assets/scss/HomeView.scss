@@ -3,28 +3,28 @@
 // 引入自定義的網站佈局
 @import "layout";
 
+// 首頁RWD調整結合Bootstrap網格系統來切版，因此修改部分CSS
+
 .index-block {
-    width: $blockWidth;
-    box-shadow: 15px 15px 0 darken($lightYellow, 10%);
+    // width: $blockWidth;
+    box-shadow: 25px 13px 0 darken($lightYellow, 10%);
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
     padding: 0; /* 清除預設css */
 }
 
 @media screen and (max-width: 992px) {
     .index-block {
-      flex-wrap: wrap;
       box-shadow: none;
     }
 }
 
 .left-block {
     position: relative;
+    padding: 0;
 }
 
 .banner-img {
-    width: $boxWidth;
+    // width: $boxWidth;
     height: $boxHeight;
     img {
         width: 100%;
@@ -47,30 +47,42 @@
 }
 
 .right-block {
-    width: $boxWidth;
+    // width: $boxWidth;
     height: $boxHeight;
     background-color: $lightYellow;
 }
 
 .test-rules {
-    width: 440px;
+    // width: 440px;
     color: $darkGreen;
     font-size: 18px;
-    margin: 150px auto 50px auto;
+    margin-top: 150px;
+    margin-bottom: 50px;
 }
 
 .player-confirm {
-    width: 440px;
+    // width: 440px;
     color: $darkGreen;
     font-size: 18px;
-    margin: 10px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .player-input {
     width: 260px;
     border: solid 1px $lightBrown;
     padding: 8px;
-    margin-left: 30px;
+}
+
+@media screen and (max-width: 992px) {
+    .test-rules,.player-confirm {
+        text-align: center;
+    }
+
+    .player-input {
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 .notice {

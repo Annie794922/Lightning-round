@@ -11,31 +11,8 @@
                 </div>
                 <template v-if="this.$store.state.gameEnded === true">
                     <h1 class="l-player-message">{{ latestResult.playerName }}, 你本次的答對題數為 {{ correctQuestions.length }} 題！</h1>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                            <th scope="col">序號</th>
-                            <th scope="col">正確答案</th>
-                            <th scope="col">你的選擇</th>
-                            <th scope="col">是否答對</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in latestResult.record">
-                                <th scope="row">{{ item.id }}</th>
-                                <td>{{ item.answer }}</td>
-                                <td>{{ item.playerRespond }}</td>
-                                <td>
-                                    <span class="correct-mark material-symbols-outlined" v-if="item.isCorrect === true">
-                                        done
-                                    </span>
-                                    <span class="incorrect-mark material-symbols-outlined" v-else-if="item.isCorrect === false">
-                                        close
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <!-- 測驗結果表格component -->
+                    <ResultTable />
                     <div class="l-button" @click="backToTest()">再測一次</div>
                 </template>
             </div>
@@ -43,22 +20,30 @@
     </div>
 </template>
 <script>
+    import ResultTable from '../components/ResultTable.vue';
+
     export default {
+        components: {
+            ResultTable
+        },
         data() {
             return {
 
             }
         },
         methods: {
+            // 返回測驗首頁
             backToTest() {
                 this.$router.push('/');
                 return;
             }
         },
         computed: {
+            // 最新一次測驗結果
             latestResult() {
                 return this.$store.state.latest;
             },
+            // 從結果中找出答題正確的那些題目
             correctQuestions() {
                 const correctItems = this.$store.state.latest.record.filter(function(item) {
                     return item.isCorrect === true;

@@ -1,0 +1,9 @@
+@import '../variables';
+
+.correct-mark {
+    color: $correctGreen;
+}
+
+.incorrect-mark {
+    color: $falseRed;
+}

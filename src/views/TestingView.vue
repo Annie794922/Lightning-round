@@ -3,7 +3,7 @@
         <div class="row">
             <div class="l-question-block">
                 <div class="l-question-img-block">
-                    <img :src="require(`../assets/images/${latestQuestion.image}`)" alt="unknown plant">
+                    <img :src="require(`../assets/images/${latestQuestion.image}`)" alt="unknown plant" title="unknown plant">
                 </div>
                 <div class="l-question-right-block">
                     <div class="question-order">
@@ -19,7 +19,7 @@
                     <template v-for="option in latestQuestion.options">
                         <optionsGroup v-bind="option" @catchOptionData="playerReply"></optionsGroup>
                     </template>
-                    <div class="l-button" @click="confirm(latestQuestion)">
+                    <div class="l-button" @click="multiButtons(latestQuestion)">
                         {{ buttonStatus }}
                     </div>
                     <p class="l-message">{{ message }}</p>
@@ -48,6 +48,7 @@
             }   
         },
         methods: {
+            // 10秒倒數計時
             SecondsCountDown() {
                 const vm = this;
                 let restSeconds = 10;
@@ -70,9 +71,7 @@
                         vm.message = '作答時間到了，再接再厲！';
                         vm.replyStatusControl();
 
-                        if (vm.$store.state.questionOrder === 10) {
-                            vm.buttonStatus = '測驗結果';
-                        }
+                        vm.testCompleted;
 
                         return;
                     } else {
@@ -86,6 +85,7 @@
                 // Error: Can't resolve 'timers' in XXX -- timer相關依賴未安裝
                 // 解決方式: npm install --save stream timers
             },
+            // 取得從optionsGroup傳出的選項資料存放至data物件中
             playerReply(data) {
                 // console.log(data);
                 const vm = this;
@@ -99,11 +99,13 @@
                     return;
                 }
             },
-            confirm(question) {
+            // 同一個按鈕依不同的文字狀態來執行不同動作
+            multiButtons(question) {
                 // console.log(question);
                 const vm = this;
 
                 switch (vm.buttonStatus) {
+                    // 單純判斷是否有選擇答案、切換選項樣式、是否完整作答10題
                     case '確定':
                         if ( vm.optionValue === null ) {
                             vm.message = '你尚未作答喔！';
@@ -119,11 +121,10 @@
                             }
                             vm.replyStatusControl();
 
-                            if (vm.$store.state.questionOrder === 10) {
-                                vm.buttonStatus = '測驗結果';
-                            }
+                            vm.testCompleted;
                         }
                         break;
+                    // 該題作答完成後，依是否答題正確&是否有選擇答案(或是時間到)之情況來切換選項樣式、重置data狀態、重啟倒數計時
                     case '下一題':
                         const options = document.querySelectorAll('.option-block');
 
@@ -152,6 +153,7 @@
                         vm.$store.commit('changeQuestion');
                         vm.SecondsCountDown();
                         break;
+                    // 重置data狀態、路由導向測驗結果頁面
                     case '測驗結果':
                         vm.resetConditions();
                         vm.$store.commit('changeQuestion');
@@ -159,6 +161,7 @@
                         break;
                 }
             },
+            // 送出答案後，依是否答對、是否作答之提示文字來切換選項樣式&儲存作答資料
             replyStatusControl() {
                 const vm = this;
                 const options = document.querySelectorAll('.option-block');
@@ -221,6 +224,7 @@
                         break;
                 }
             },
+            // 該題作答結束後重置data物件狀態
             resetConditions() {
                 const vm = this;
                 
@@ -234,6 +238,7 @@
             }
         },
         computed: {
+            // 題目切換
             latestQuestion() {
                 const vm = this;
                 const proceedingQuestion = vm.$store.state.questionsData.find(function(item) {
@@ -241,9 +246,39 @@
                 });
                 console.log(proceedingQuestion);
                 return proceedingQuestion;
+            },
+            // 核對當前題目是否已作答過
+            repeatQuestion() {
+                const vm = this;
+                const repliedQuestion = vm.$store.state.latest.record.some(function(item) {
+                    return item.id === vm.$store.state.questionOrder;
+                });
+                // console.log(repliedQuestion);
+
+                if ( repliedQuestion === true && vm.$store.state.questionOrder === 10 ) {
+                    alert('本次測驗已作答完畢，來看看測驗結果吧！');
+                    vm.$store.commit('changeQuestion');
+                    vm.$router.push('/result');
+                    return;
+                } else if ( repliedQuestion === true ) {
+                    alert('這題已經作答過了，直接帶你前往下一題吧！');
+                    vm.$store.commit('changeQuestion');
+                    return;
+                }
+            },
+            // 完整作答10題時，另將本次結果存到歷史紀錄
+            testCompleted() {
+                const vm = this;
+                if ( vm.$store.state.latest.record.length === 10 ) {
+                    vm.buttonStatus = '測驗結果';
+                    const latestRecord = vm.$store.state.latest;
+                    vm.$store.commit('updateHistory', latestRecord);
+                    return;
+                }
             }
         },
         watch: {
+            // 監聽點選選項之index值切換作答時的選項樣式
             optionIndex(newIndex, oriIndex) {
                 console.log('new: '+ newIndex);
                 console.log('old: '+ oriIndex);
@@ -264,7 +299,9 @@
             }
         },
         created() {
+            // 生成秒數倒數計時、重複答題核對之方法
             this.SecondsCountDown();
+            this.repeatQuestion;
         }
     }
 </script>
