@@ -11,6 +11,7 @@ export default createStore({
     latest: {
       playerId: 0,
       playerName: '',
+      date: '',
       record: []
     },
     // 有完整作答完畢的測驗紀錄
@@ -27,9 +28,11 @@ export default createStore({
       state.latest.record = [];
 
       state.latest.playerId++;
+      // 在data物件中新增playerId屬性
       data.playerId = state.latest.playerId;
 
       state.latest.playerName = data.name;
+      state.latest.date = data.date;
 
       console.log(state.latest);
       console.log(state.history);

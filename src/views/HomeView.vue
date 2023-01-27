@@ -62,8 +62,22 @@ export default {
         vm.message = '名字字數不得超過15個字喔！';
         return;
       } else {
+        const today = new Date();
+        // 在Date原型上新增getFullDate方法取得遊戲當天之完整年月日
+        Date.prototype.getFullDate = function() {
+          let year = this.getFullYear();
+          let month = this.getMonth() + 1;
+          let day = this.getDate();
+
+          let today = year + '/' + month + '/' + day;
+          return today;
+        };
+
+        // console.log(today.getFullDate());
+        
         vm.$store.commit('playerData', {
-          name: vm.player
+          name: vm.player,
+          date: today.getFullDate()
         });
         vm.$router.push('/testing');
         return;

@@ -8,7 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">歷史紀錄</a>
+                    <router-link to="/history" class="nav-link" aria-current="page" href="#">歷史紀錄</router-link>
                 </li>
             </ul>
             </div>

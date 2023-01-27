@@ -1,6 +1,43 @@
 @import "variables";
 @import "layout";
-// @import "module";
+
+.question-block {
+    width: $blockWidth;
+    border: solid 1px $lightBrown;
+    margin: 0 auto 30px auto;
+    display: flex;
+    justify-content: center;
+    padding: 0; /* 清除預設css */
+}
+
+@media screen and (max-width: 992px) {
+    .question-block {
+      flex-wrap: wrap;
+    }
+}
+
+.question-img-block {
+    width: $boxWidth;
+    height: $boxHeight;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .question-img-block {
+        width: $boxWidth * 1.2;
+        height: $boxHeight / 1.5;
+    }
+}
+
+.question-right-block {
+    width: $boxWidth;
+    height: $boxHeight;
+    text-align: center;
+}
 
 .question-order {
     width: 60px;

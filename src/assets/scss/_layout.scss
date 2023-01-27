@@ -38,44 +38,7 @@ footer {
 
 // 共通屬性(同樣設計的元素在專案中出現多次，例如表格、按鈕等，用前綴詞將class名稱區分)
 
-.l-question-block {
-    width: $blockWidth;
-    border: solid 1px $lightBrown;
-    margin: 0 auto 30px auto;
-    display: flex;
-    justify-content: center;
-    padding: 0; /* 清除預設css */
-}
-
-@media screen and (max-width: 992px) {
-    .l-question-block {
-      flex-wrap: wrap;
-    }
-}
-
-.l-question-img-block {
-    width: $boxWidth;
-    height: $boxHeight;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .l-question-img-block {
-        width: $boxWidth * 1.2;
-        height: $boxHeight / 1.5;
-    }
-}
-
-.l-question-right-block {
-    width: $boxWidth;
-    height: $boxHeight;
-    text-align: center;
-}
-
+// HomeView、TestingView、ResultView、HistoryView
 .l-button {
     width: $btnWidth;
     padding: $btnHeight 0;
@@ -90,11 +53,13 @@ footer {
     }
 }
 
+// HomeView、TestingView
 .l-message {
     color: $alertRed;
     text-align: center;
 }
 
+// ResultView、HistoryView
 .l-area-block {
     width: $blockWidth;
     border: solid 1px $lightBrown;
@@ -102,6 +67,7 @@ footer {
     padding: 0; /* 清除預設css */
 }
 
+// ResultView、HistoryView
 .l-area-title {
     color: $white;
     background-color: $lightBrown;
@@ -110,9 +76,38 @@ footer {
     padding: 15px 0;
 }
 
+// ResultView、HistoryView
 .l-player-message {
     color: $darkGreen;
     font-size: 22px;
     text-align: center;
     margin: 30px 0;
+}
+
+// ResultTable、HistoryDetails
+.l-table {
+    width: $blockWidth * 0.75;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+    .l-table {
+        width: $blockWidth * 0.5;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .l-table {
+        width: $blockWidth * 0.4;
+    }
+}
+
+// ResultTable、HistoryDetails
+.l-correct-mark {
+    color: $correctGreen;
+}
+
+// ResultTable、HistoryDetails
+.l-incorrect-mark {
+    color: $falseRed;
 }

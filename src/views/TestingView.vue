@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid col-11 col-md-10 col-1g-12">
         <div class="row">
-            <div class="l-question-block">
-                <div class="l-question-img-block">
+            <div class="question-block">
+                <div class="question-img-block">
                     <img :src="require(`../assets/images/${latestQuestion.image}`)" alt="unknown plant" title="unknown plant">
                 </div>
-                <div class="l-question-right-block">
+                <div class="question-right-block">
                     <div class="question-order">
                         {{ latestQuestion.id }}
                     </div>
@@ -17,7 +17,7 @@
                     </p>
                     <!-- 選項組拉一個component出來 -->
                     <template v-for="option in latestQuestion.options">
-                        <optionsGroup v-bind="option" @catchOptionData="playerReply"></optionsGroup>
+                        <OptionsGroup v-bind="option" @catchOptionData="playerReply"></OptionsGroup>
                     </template>
                     <div class="l-button" @click="multiButtons(latestQuestion)">
                         {{ buttonStatus }}
@@ -30,11 +30,11 @@
 </template>
 <script>
     import { clearTimeout } from "timers";
-    import optionsGroup from "../components/optionsGroup.vue";
+    import OptionsGroup from "../components/OptionsGroup.vue";
 
     export default {
         components: {
-            optionsGroup
+            OptionsGroup
         },
         data() {
             return {
@@ -271,7 +271,16 @@
                 const vm = this;
                 if ( vm.$store.state.latest.record.length === 10 ) {
                     vm.buttonStatus = '測驗結果';
-                    const latestRecord = vm.$store.state.latest;
+
+                    // 以建構函式另外定義紀錄成立的物件模型，避免傳址特性影響
+                    function newRecord(playerId, playerName, date, record) {
+                        this.playerId = playerId;
+                        this.playerName = playerName;
+                        this.date = date;
+                        this.record = record;
+                    };
+
+                    const latestRecord = new newRecord(vm.$store.state.latest.playerId, vm.$store.state.latest.playerName, vm.$store.state.latest.date, vm.$store.state.latest.record);
                     vm.$store.commit('updateHistory', latestRecord);
                     return;
                 }
