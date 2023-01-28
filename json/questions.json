@@ -1,0 +1,202 @@
+[
+    {
+        "id": 1,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "雞蛋花.jpg",
+        "options": [
+            {
+                "label": "咸豐草",
+                "value": "咸豐草"
+            },
+            {
+                "label": "雞蛋花",
+                "value": "雞蛋花"
+            },
+            {
+                "label": "茉莉花",
+                "value": "茉莉花"
+            }
+        ],
+        "answer": "雞蛋花"
+    },
+    {
+        "id": 2,
+        "title": "請問圖中為下列哪種植物的果實？",
+        "image": "台灣欒樹果實.jpg",
+        "options": [
+            {
+                "label": "台灣欒樹",
+                "value": "台灣欒樹"
+            },
+            {
+                "label": "柏樹",
+                "value": "柏樹"
+            },
+            {
+                "label": "黑板樹",
+                "value": "黑板樹"
+            }
+        ],
+        "answer": "台灣欒樹"
+    },
+    {
+        "id": 3,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "孤挺花.jpg",
+        "options": [
+            {
+                "label": "孤挺花",
+                "value": "孤挺花"
+            },
+            {
+                "label": "金木犀",
+                "value": "金木犀"
+            },
+            {
+                "label": "鳳凰花",
+                "value": "鳳凰花"
+            }
+        ],
+        "answer": "孤挺花"
+    },
+    {
+        "id": 4,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "燈籠花.jpg",
+        "options": [
+            {
+                "label": "火焰花",
+                "value": "火焰花"
+            },
+            {
+                "label": "豬籠草",
+                "value": "豬籠草"
+            },
+            {
+                "label": "燈籠花",
+                "value": "燈籠花"
+            }
+        ],
+        "answer": "燈籠花"
+    },
+    {
+        "id": 5,
+        "title": "請問圖中為下列哪種植物的果實？",
+        "image": "炸彈樹果實.jpg",
+        "options": [
+            {
+                "label": "炸彈樹",
+                "value": "炸彈樹"
+            },
+            {
+                "label": "麵包樹",
+                "value": "麵包樹"
+            },
+            {
+                "label": "椰子樹",
+                "value": "椰子樹"
+            }
+        ],
+        "answer": "炸彈樹"
+    },
+    {
+        "id": 6,
+        "title": "請問圖中為下列哪種植物的果實？",
+        "image": "青剛櫟果實.jpg",
+        "options": [
+            {
+                "label": "松樹",
+                "value": "松樹"
+            },
+            {
+                "label": "青剛櫟樹",
+                "value": "青剛櫟樹"
+            },
+            {
+                "label": "核桃樹",
+                "value": "核桃樹"
+            }
+        ],
+        "answer": "青剛櫟樹"
+    },
+    {
+        "id": 7,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "桃花.jpg",
+        "options": [
+            {
+                "label": "荷花",
+                "value": "荷花"
+            },
+            {
+                "label": "梅花",
+                "value": "梅花"
+            },
+            {
+                "label": "桃花",
+                "value": "桃花"
+            }
+        ],
+        "answer": "桃花"
+    },
+    {
+        "id": 8,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "海芋.jpg",
+        "options": [
+            {
+                "label": "百合",
+                "value": "百合"
+            },
+            {
+                "label": "海芋",
+                "value": "海芋"
+            },
+            {
+                "label": "棉花",
+                "value": "棉花"
+            }
+        ],
+        "answer": "海芋"
+    },
+    {
+        "id": 9,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "六倍利.jpg",
+        "options": [
+            {
+                "label": "迷迭香",
+                "value": "迷迭香"
+            },
+            {
+                "label": "六倍利",
+                "value": "六倍利"
+            },
+            {
+                "label": "蝴蝶蘭",
+                "value": "蝴蝶蘭"
+            }
+        ],
+        "answer": "六倍利"
+    },
+    {
+        "id": 10,
+        "title": "請問圖中為下列哪一種植物？",
+        "image": "仙草花.jpg",
+        "options": [
+            {
+                "label": "仙草花",
+                "value": "仙草花"
+            },
+            {
+                "label": "薰衣草",
+                "value": "薰衣草"
+            },
+            {
+                "label": "九層塔",
+                "value": "九層塔"
+            }
+        ],
+        "answer": "仙草花"
+    }
+]
