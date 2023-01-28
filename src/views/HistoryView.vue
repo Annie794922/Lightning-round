@@ -12,6 +12,9 @@
                     <h1 class="l-player-message">請選擇玩家，即可查看該玩家的遊戲紀錄喔！</h1>
                     <!-- 玩家名稱下拉式選單component -->
                     <PlayerSelector @getPlayer="getDetails"></PlayerSelector>
+                    <div class="history-img" v-show="playerDetails.length === 0">
+                        <img src="../assets/images/向日葵.jpg" alt="">
+                    </div>
                     <template v-for="details in playerDetails">
                         <!-- 遊戲紀錄明細component -->
                         <HistoryDetails v-bind="details"></HistoryDetails>
