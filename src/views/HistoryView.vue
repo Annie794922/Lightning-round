@@ -6,7 +6,7 @@
                     歷史紀錄
                 </div>
                 <div class="zero-record-situation" v-if="this.$store.state.history.length === 0">
-                    <h1 class="l-player-message">等等，還沒有遊戲紀錄耶，快去測驗看看吧！</h1>
+                    <h1 class="l-player-message">等等，還沒有遊戲紀錄耶，<br />快去測驗看看吧！</h1>
                 </div>
                 <template v-if="this.$store.state.history.length > 0">
                     <h1 class="l-player-message">請選擇玩家，即可查看該玩家的遊戲紀錄喔！</h1>

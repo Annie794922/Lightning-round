@@ -27,3 +27,10 @@
         width: $boxWidth * 0.75;
     }
 }
+
+@media screen and (max-width: 520px) {
+    .history-img {
+        width: $boxWidth * 0.4;
+        height: $boxHeight * 0.4;
+    };
+}

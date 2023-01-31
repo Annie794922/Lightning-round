@@ -4,7 +4,7 @@
         <h3 class="correct-questions">答對題數：{{ correctQuestions.length }}</h3>
     </div>
     <!-- 以l-table來設定table的layout樣式，由於放在前方會影響Bootstrap預設樣式，因此該順序寫在class名稱最後方 -->
-    <table class="table table-striped l-table">
+    <table class="table table-striped l-table w-75">
         <thead>
             <tr>
                 <th scope="col">序號</th>

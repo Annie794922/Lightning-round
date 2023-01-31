@@ -84,22 +84,16 @@ footer {
     margin: 30px 0;
 }
 
+@media screen and (max-width: 520px) {
+    .l-player-message {
+        font-size: 19px;
+    }
+}
+
 // ResultTable、HistoryDetails
 .l-table {
-    width: $blockWidth * 0.75;
+    // 為了讓表格的RWD更彈性，調整成使用Bootstrap中的Sizing類別
     margin: 0 auto;
-}
-
-@media screen and (max-width: 992px) {
-    .l-table {
-        width: $blockWidth * 0.5;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .l-table {
-        width: $blockWidth * 0.4;
-    }
 }
 
 // ResultTable、HistoryDetails

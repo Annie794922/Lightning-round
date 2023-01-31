@@ -29,7 +29,8 @@
     </div>
 </template>
 <script>
-    import { clearTimeout } from "timers";
+    // 依本專案情形引入timers套件可能反而會有clearTimeout被Vue封裝的問題，因此先移除
+    // import { clearTimeout } from "timers";
     import OptionsGroup from "../components/OptionsGroup.vue";
 
     export default {
@@ -55,15 +56,17 @@
 
                 function countDown() {
                     let countOnce = setTimeout(countDown, 1000);
+                    console.dir(countOnce);
+                    // console.dir(clearTimeout);
 
                     if ( vm.responded === true ) {
-                        window.clearTimeout(countOnce);
+                        clearTimeout(countOnce);
                         return;
                     } else if ( restSeconds === 1 ) {
                         // 到數至1秒時在判斷式內再-1避免時間差
                         restSeconds--;
                         vm.restSeconds = restSeconds;
-                        window.clearTimeout(countOnce);
+                        clearTimeout(countOnce);
                         // 若有引入import { clearTimeout } from "timers"; 需添加window才能找到clearTimeout清除定時器
 
                         vm.responded = true;
