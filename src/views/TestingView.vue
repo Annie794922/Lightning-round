@@ -29,7 +29,7 @@
     </div>
 </template>
 <script>
-    // 依本專案情形引入timers套件可能反而會有clearTimeout被Vue封裝的問題，因此先移除
+    // 依本專案情形引入timers套件可能反而會有計時器被Vue封裝的問題，因此先移除
     // import { clearTimeout } from "timers";
     import OptionsGroup from "../components/OptionsGroup.vue";
 
@@ -39,54 +39,83 @@
         },
         data() {
             return {
-                restSeconds: null,
+                restSeconds: 10, // 剩餘秒數
                 optionValue: null,
                 optionIndex: null,
                 buttonStatus: '確定',
                 message: '',
                 responded: false,
-                answerIndex: null
+                answerIndex: null,
+                timerId: null // 設定計時器回傳的id(移除計時器時就是利用該id)
             }   
         },
         methods: {
+            // 設定計時器
+            startTimer() {
+                this.timerId = setInterval(this.SecondsCountDown, 1000);
+            },
             // 10秒倒數計時
             SecondsCountDown() {
                 const vm = this;
-                let restSeconds = 10;
 
-                function countDown() {
-                    let countOnce = setTimeout(countDown, 1000);
-                    console.dir(countOnce);
-                    // console.dir(clearTimeout);
+                if ( vm.responded === true ) {
+                    window.clearInterval(vm.timerId);
+                    return;
+                } else if ( vm.restSeconds === 1 ) {
+                    // 到數至1秒時在判斷式內再-1避免時間差
+                    vm.restSeconds--;
+                    window.clearInterval(vm.timerId);
 
-                    if ( vm.responded === true ) {
-                        clearTimeout(countOnce);
-                        return;
-                    } else if ( restSeconds === 1 ) {
-                        // 到數至1秒時在判斷式內再-1避免時間差
-                        restSeconds--;
-                        vm.restSeconds = restSeconds;
-                        clearTimeout(countOnce);
-                        // 若有引入import { clearTimeout } from "timers"; 需添加window才能找到clearTimeout清除定時器
+                    vm.responded = true;
+                    vm.buttonStatus = '下一題';
+                    vm.message = '作答時間到了，再接再厲！';
+                    vm.replyStatusControl();
 
-                        vm.responded = true;
-                        vm.buttonStatus = '下一題';
-                        vm.message = '作答時間到了，再接再厲！';
-                        vm.replyStatusControl();
+                    vm.testCompleted;
 
-                        vm.testCompleted;
+                    return;
+                } else {
+                    vm.restSeconds--;
+                }
 
-                        return;
-                    } else {
-                        restSeconds--;
-                        vm.restSeconds = restSeconds;
-                        // console.log(restSeconds);
-                    };
-                };
+                // 下方為原本的計時器寫法(以類似遞迴概念讓計時器不斷執行，但偶爾會有兩段計時器交錯執行的bug)
 
-                countDown();
-                // Error: Can't resolve 'timers' in XXX -- timer相關依賴未安裝
-                // 解決方式: npm install --save stream timers
+                // const vm = this;
+                // let restSeconds = 10;
+
+                // function countDown() {
+                //     let countOnce = setTimeout(countDown, 1000);
+                //     console.dir(countOnce);
+                //     // console.dir(clearTimeout);
+
+                //     if ( vm.responded === true ) {
+                //         clearTimeout(countOnce);
+                //         return;
+                //     } else if ( restSeconds === 1 ) {
+                //         // 到數至1秒時在判斷式內再-1避免時間差
+                //         restSeconds--;
+                //         vm.restSeconds = restSeconds;
+                //         clearTimeout(countOnce);
+                //         // 若有引入import { clearTimeout } from "timers"; 需添加window才能找到clearTimeout清除定時器
+
+                //         vm.responded = true;
+                //         vm.buttonStatus = '下一題';
+                //         vm.message = '作答時間到了，再接再厲！';
+                //         vm.replyStatusControl();
+
+                //         vm.testCompleted;
+
+                //         return;
+                //     } else {
+                //         restSeconds--;
+                //         vm.restSeconds = restSeconds;
+                //         // console.log(restSeconds);
+                //     };
+                // };
+
+                // countDown();
+                // // Error: Can't resolve 'timers' in XXX -- timer相關依賴未安裝
+                // // 解決方式: npm install --save stream timers
             },
             // 取得從optionsGroup傳出的選項資料存放至data物件中
             playerReply(data) {
@@ -231,13 +260,23 @@
             resetConditions() {
                 const vm = this;
                 
-                vm.restSeconds = null;
+                // 一開始透過created建立實體restSeconds會從10開始遞減，但後續是透過methods再次觸發
+                // 而在觸發時會回傳已經-1之後的數字，因此計時器剩餘秒數要從11開始先讓它-1
+                vm.restSeconds = 11;
                 vm.optionValue = null;
                 vm.optionIndex = null;
                 vm.buttonStatus = '確定';
                 vm.message = '';
                 vm.responded = false;
                 vm.answerIndex = null;
+
+                vm.timerId = null;
+
+                // 在已經作答完畢時不再觸發計時器設定，避免跳轉頁面後尚未取消計時器
+                if ( vm.$store.state.latest.record.length === 10 ) return;
+                else {
+                    vm.startTimer();
+                }
             }
         },
         computed: {
@@ -311,9 +350,13 @@
             }
         },
         created() {
-            // 生成秒數倒數計時、重複答題核對之方法
-            this.SecondsCountDown();
+            // 設定秒數倒數計時器、重複答題核對之方法
+            this.startTimer();
             this.repeatQuestion;
+        },
+        // 為了讓created時建立的計時器在離開頁面後不再執行，在銷毀實體之前(beforeDestroy)最好清除計時器
+        beforeUnmount() {
+            clearInterval(this.timerId);
         }
     }
 </script>
