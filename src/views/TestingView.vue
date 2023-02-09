@@ -39,7 +39,7 @@
         },
         data() {
             return {
-                restSeconds: 10, // 剩餘秒數
+                restSeconds: 11, // 剩餘秒數(mounted時就先執行一次，因此要從11開始遞減)
                 optionValue: null,
                 optionIndex: null,
                 buttonStatus: '確定',
@@ -49,71 +49,43 @@
                 timerId: null // 設定計時器回傳的id(移除計時器時就是利用該id)
             }   
         },
+        mounted() {
+            this.SecondsCountDown();
+        },
         methods: {
-            // 設定計時器
-            startTimer() {
-                this.timerId = setInterval(this.SecondsCountDown, 1000);
-            },
-            // 10秒倒數計時
+            // 10秒倒數計時(以類似遞迴概念讓計時器不斷執行)
             SecondsCountDown() {
                 const vm = this;
 
-                if ( vm.responded === true ) {
-                    window.clearInterval(vm.timerId);
-                    return;
-                } else if ( vm.restSeconds === 1 ) {
-                    // 到數至1秒時在判斷式內再-1避免時間差
-                    vm.restSeconds--;
-                    window.clearInterval(vm.timerId);
+                function countDown() {
+                    // 每間隔一秒就會推入新的callback等待執行，而一秒過去後多個方法相繼執行時，會看到倒數計時一下遞減多個數字的錯誤(即是快速執行多次遞減1的動作)
+                    // 這段的用意就是為了將上一個計時器清除
+                    vm.timerId && clearTimeout(vm.timerId);
 
-                    vm.responded = true;
-                    vm.buttonStatus = '下一題';
-                    vm.message = '作答時間到了，再接再厲！';
-                    vm.replyStatusControl();
+                    vm.timerId = setTimeout(countDown, 1000);
 
-                    vm.testCompleted;
+                    if ( vm.responded === true ) {
+                        window.clearTimeout(vm.timerId);
+                        return;
+                    } else if ( vm.restSeconds === 1 ) {
+                        // 到數至1秒時在判斷式內再-1避免時間差
+                        vm.restSeconds--;
+                        window.clearTimeout(vm.timerId);
 
-                    return;
-                } else {
-                    vm.restSeconds--;
-                }
+                        vm.responded = true;
+                        vm.buttonStatus = '下一題';
+                        vm.message = '作答時間到了，再接再厲！';
+                        vm.replyStatusControl();
 
-                // 下方為原本的計時器寫法(以類似遞迴概念讓計時器不斷執行，但偶爾會有兩段計時器交錯執行的bug)
+                        vm.testCompleted;
 
-                // const vm = this;
-                // let restSeconds = 10;
+                        return;
+                    } else {
+                        vm.restSeconds--;
+                    }
+                };
 
-                // function countDown() {
-                //     let countOnce = setTimeout(countDown, 1000);
-                //     console.dir(countOnce);
-                //     // console.dir(clearTimeout);
-
-                //     if ( vm.responded === true ) {
-                //         clearTimeout(countOnce);
-                //         return;
-                //     } else if ( restSeconds === 1 ) {
-                //         // 到數至1秒時在判斷式內再-1避免時間差
-                //         restSeconds--;
-                //         vm.restSeconds = restSeconds;
-                //         clearTimeout(countOnce);
-                //         // 若有引入import { clearTimeout } from "timers"; 需添加window才能找到clearTimeout清除定時器
-
-                //         vm.responded = true;
-                //         vm.buttonStatus = '下一題';
-                //         vm.message = '作答時間到了，再接再厲！';
-                //         vm.replyStatusControl();
-
-                //         vm.testCompleted;
-
-                //         return;
-                //     } else {
-                //         restSeconds--;
-                //         vm.restSeconds = restSeconds;
-                //         // console.log(restSeconds);
-                //     };
-                // };
-
-                // countDown();
+                countDown();
                 // // Error: Can't resolve 'timers' in XXX -- timer相關依賴未安裝
                 // // 解決方式: npm install --save stream timers
             },
@@ -183,7 +155,6 @@
 
                         vm.resetConditions();
                         vm.$store.commit('changeQuestion');
-                        vm.SecondsCountDown();
                         break;
                     // 重置data狀態、路由導向測驗結果頁面
                     case '測驗結果':
@@ -271,12 +242,6 @@
                 vm.answerIndex = null;
 
                 vm.timerId = null;
-
-                // 在已經作答完畢時不再觸發計時器設定，避免跳轉頁面後尚未取消計時器
-                if ( vm.$store.state.latest.record.length === 10 ) return;
-                else {
-                    vm.startTimer();
-                }
             }
         },
         computed: {
@@ -286,7 +251,7 @@
                 const proceedingQuestion = vm.$store.state.questionsData.find(function(item) {
                     return item.id === vm.$store.state.questionOrder;
                 });
-                console.log(proceedingQuestion);
+                // console.log(proceedingQuestion);
                 return proceedingQuestion;
             },
             // 核對當前題目是否已作答過
@@ -329,6 +294,10 @@
             }
         },
         watch: {
+            // 監聽computed的題目被更新時再次執行計時器方法
+            latestQuestion() {
+                this.SecondsCountDown();
+            },
             // 監聽點選選項之index值切換作答時的選項樣式
             optionIndex(newIndex, oriIndex) {
                 console.log('new: '+ newIndex);
@@ -350,13 +319,8 @@
             }
         },
         created() {
-            // 設定秒數倒數計時器、重複答題核對之方法
-            this.startTimer();
+            // 重複答題核對之方法
             this.repeatQuestion;
-        },
-        // 為了讓created時建立的計時器在離開頁面後不再執行，在銷毀實體之前(beforeDestroy)最好清除計時器
-        beforeUnmount() {
-            clearInterval(this.timerId);
         }
     }
 </script>
