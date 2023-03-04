@@ -34,10 +34,16 @@
     }
 }
 
+@media screen and (max-width: 992px) {
+    .banner-img {
+        height: $boxHeight * 0.8;
+    }
+}
+
 .banner-words {
     position: absolute;
     width: 420px;
-    height: 75px;
+    height: 80px;
     color: $white;
     font-size: 19px;
     top: 0; /* 在absolute時，元素本身要有寬高再搭配top/bottom/left/right: 0以及margin: auto才能置中 */
@@ -59,6 +65,12 @@
     // width: $boxWidth;
     height: $boxHeight;
     background-color: $lightYellow;
+}
+
+@media screen and (max-width: 992px) {
+    .right-block {
+        height: $boxHeight * 0.8;
+    }
 }
 
 .test-rules {
@@ -84,13 +96,14 @@
 }
 
 @media screen and (max-width: 992px) {
-    .test-rules,.player-confirm {
-        text-align: center;
+    .test-rules {
+        margin-top: 123px;
     }
 
-    .player-input {
-        display: block;
-        margin: 0 auto;
+    .test-rules,.player-confirm {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
